@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideShare - Carpooling Made Easy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-width: 400px;
+            width: 90%;
+        }
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md p-4 fixed w-full z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">RideShare</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#features" class="text-gray-600 hover:text-blue-600 font-medium">Features</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 font-medium">How It Works</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-blue-600 font-medium">Testimonials</a>
+                <a href="#download" class="text-gray-600 hover:text-blue-600 font-medium">Download</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient text-white py-20 md:py-32 text-center relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in">
+                Carpooling Made Easy. <br class="hidden sm:inline"> Connect. Share. Save.
+            </h1>
+            <p class="text-lg md:text-xl mb-10 opacity-90 animate-fade-in" style="animation-delay: 0.2s;">
+                Find convenient rides or share your empty seats. Sustainable, affordable, and community-driven.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in" style="animation-delay: 0.4s;">
+                <a href="#download" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-gray-100 transition duration-300">
+                    Download the App
+                </a>
+                <a href="#how-it-works" class="border-2 border-white text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transition duration-300">
+                    Learn More
+                </a>
+            </div>
+        </div>
+        <!-- Abstract shapes for background effect -->
+        <div class="absolute top-0 left-0 w-full h-full">
+            <svg class="absolute top-0 left-0 w-full h-full opacity-20" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#ffffff" fill-opacity="0.1" d="M0,96L60,128C120,160,240,224,360,229.3C480,235,600,181,720,160C840,139,960,149,1080,160C1200,171,1320,181,1380,186.7L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-900">Why Choose RideShare?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-blue-600 mb-4 inline-block p-3 bg-blue-100 rounded-full">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2zM21 12c0 1.657-1.343 3-3 3H6c-1.657 0-3-1.343-3-3s1.343-3 3-3h12c1.657 0 3 1.343 3 3z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Save Money</h3>
+                    <p class="text-gray-600">Split fuel costs, reduce wear & tear, and save on parking. More money in your pocket!</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-green-600 mb-4 inline-block p-3 bg-green-100 rounded-full">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10v11h18V10M6 6v3h12V6M9 2v4h6V2"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Reduce Carbon Footprint</h3>
+                    <p class="text-gray-600">Fewer cars on the road mean less emissions. Contribute to a healthier planet.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-purple-600 mb-4 inline-block p-3 bg-purple-100 rounded-full">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h-10A4 4 0 013 16V8a4 4 0 014-4h10a4 4 0 014 4v8a4 4 0 01-4 4zM12 10v4m-2-2h4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Build Community</h3>
+                    <p class="text-gray-600">Connect with neighbors and co-workers. Make your daily commute more social.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-900">How RideShare Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-blue-600 mb-4 inline-block text-4xl font-bold">1</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Create Your Profile</h3>
+                    <p class="text-gray-600">Sign up as a Rider or Driver. Fill in your details and verification for a safe community.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-green-600 mb-4 inline-block text-4xl font-bold">2</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Find or Post a Ride</h3>
+                    <p class="text-gray-600">Riders search for available rides. Drivers post their routes and empty seats.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-purple-600 mb-4 inline-block text-4xl font-bold">3</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Connect & Ride</h3>
+                    <p class="text-gray-600">Confirm details through in-app chat. Enjoy your shared journey!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-900">What Our Users Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg">
+                    <p class="text-lg text-gray-700 mb-6 italic">
+                        "RideShare has transformed my commute! I save so much money on gas, and it's great to meet new people. Highly recommended!"
+                    </p>
+                    <div class="font-semibold text-blue-600">- Jane Doe, Rider</div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg">
+                    <p class="text-lg text-gray-700 mb-6 italic">
+                        "As a driver, I love filling my empty seats and earning extra cash. The app is super easy to use and very reliable."
+                    </p>
+                    <div class="font-semibold text-green-600">- John Smith, Driver</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="hero-gradient text-white py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">Ready to RideShare?</h2>
+            <p class="text-lg md:text-xl mb-10 opacity-90">
+                Download the app now and start your sustainable and affordable commuting journey.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-gray-100 transition duration-300 flex items-center justify-center">
+                    <img src="https://placehold.co/24x24/FFFFFF/000000?text=App" alt="App Store Icon" class="inline-block mr-2"> App Store
+                </a>
+                <a href="#" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-gray-100 transition duration-300 flex items-center justify-center">
+                    <img src="https://placehold.co/24x24/FFFFFF/000000?text=Play" alt="Google Play Icon" class="inline-block mr-2"> Google Play
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4 text-center max-w-2xl">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-gray-900">Get in Touch</h2>
+            <p class="text-lg text-gray-700 mb-10">
+                Have questions or feedback? We'd love to hear from you!
+            </p>
+            <form id="contact-form" class="bg-white p-8 rounded-xl shadow-lg space-y-6">
+                <div>
+                    <input type="text" id="contact-name" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <input type="email" id="contact-email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <textarea id="contact-message" rows="5" placeholder="Your Message" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-blue-700 transition duration-300 w-full">
+                    Send Message
+                </button>
+            </form>
+            <div class="mt-8 text-gray-600">
+                <p>Email: <a href="mailto:support@rideshare.com" class="text-blue-600 hover:underline">support@rideshare.com</a></p>
+                <p>Phone: +1 (123) 456-7890</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 RideShare. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Modal Structure -->
+    <div id="customModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle" class="text-2xl font-bold mb-4 text-gray-900"></h3>
+            <p id="modalMessage" class="text-gray-700 mb-6"></p>
+            <button id="closeModalBtn" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the custom modal
+        function showCustomModal(title, message) {
+            const modal = document.getElementById('customModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            modal.classList.add('active');
+        }
+
+        // Function to close the custom modal
+        function closeCustomModal() {
+            const modal = document.getElementById('customModal');
+            modal.classList.remove('active');
+        }
+
+        // Event listener for the close button inside the modal
+        document.getElementById('closeModalBtn').addEventListener('click', closeCustomModal);
+
+        // Close modal on outside click
+        document.getElementById('customModal').addEventListener('click', (e) => {
+            if (e.target.id === 'customModal') {
+                closeCustomModal();
+            }
+        });
+
+        // Handle contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            // In a real application, you would send this data to a backend server.
+            // For this demo, we'll just show a success message.
+            showCustomModal('Message Sent!', 'Thank you for your message. We will get back to you shortly.');
+            this.reset(); // Clear the form
+        });
+
+        // Smooth Scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle - now uses custom modal
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            showCustomModal('Mobile Menu', 'Mobile menu functionality would be implemented here, potentially as a slide-out drawer or full-screen overlay.');
+        });
+    </script>
+</body>
+</html>
